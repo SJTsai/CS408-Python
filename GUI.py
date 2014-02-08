@@ -6,10 +6,11 @@ cell_width = 50
 
 
 def draw(event):
-    cellX = cell_width*int(event.x/cell_width)
-    cellY = cell_width*int(event.y/cell_width)
-    w.create_oval( cellX, cellY, cellX+cell_width, cellY+cell_width, fill = "red")
-
+    cellX = int(event.x/cell_width)
+    cellY = int(event.y/cell_width)
+    cellXTopLeft = cell_width*cellX
+    cellYTopLeft = cell_width*cellY
+    w.create_oval( cellXTopLeft, cellYTopLeft, cellXTopLeft+cell_width, cellYTopLeft+cell_width, fill = "red")
 
 w = Canvas(root, width=canvas_size, height=canvas_size)
 w.bind("<Button-1>", draw)
