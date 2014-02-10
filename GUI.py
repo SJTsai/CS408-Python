@@ -1,6 +1,6 @@
-from tkinter import *
+import tkinter
 
-root = Tk()
+root = tkinter.Tk()
 canvas_size = 950
 cell_width = 50
 
@@ -12,7 +12,7 @@ def draw(event):
     cellYTopLeft = cell_width*cellY
     w.create_oval( cellXTopLeft, cellYTopLeft, cellXTopLeft+cell_width, cellYTopLeft+cell_width, fill = "red")
 
-w = Canvas(root, width=canvas_size, height=canvas_size)
+w = tkinter.Canvas(root, width=canvas_size, height=canvas_size)
 w.bind("<Button-1>", draw)
 
 for x in range(canvas_size):

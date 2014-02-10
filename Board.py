@@ -7,9 +7,10 @@ class Board(object):
        as well as empty lists for black and white locations on board"""
     def __init__(self, size):
         self.size = size
+        #Make the board list
         self.board = [["-" for i in range(size)] for j in range(size)]
-        self.blackLocations = [] """List of Points"""
-        self.whiteLocations = [] """List of Points"""
+        self.blackLocations = [] """List of black points"""
+        self.whiteLocations = [] """List of white points"""
         self.pieceLocations = {"b":self.blackLocations,
                                "w":self.whiteLocations}
 
