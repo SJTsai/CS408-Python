@@ -9,7 +9,7 @@ class Board(object):
     def __init__(self, size):
         self.size = size
         """Make the board list"""
-        self.board = [["-" for i in range(size)] for j in range(size)]
+        self.board = [[None for i in range(size)] for j in range(size)]
         """List of points for black and white inside a dictionary"""
         self.pieceLocations = {Color.black:[], Color.white:[]}
         
@@ -23,12 +23,13 @@ class Board(object):
         elif piece.color == Color.white:
             self.pieceLocations[Color.white].append(point)
 
-        self.board[point.x][point.y] = piece.color
+        self.board[point.getX()][point.getY()] = piece.color
 
     """Get the piece at specified row and column"""
     def getPieceAt(self, point):
         """Check if point is valid here"""
-        pass
+
+        return self.board[point.getX(), point.getY()]
 
     """Get the piece locations of a certain color
        (Seems like enums are available in 3.4 but not 3.3.
@@ -47,7 +48,9 @@ class Board(object):
     """Print contents of board"""
     def printBoard(self):
         for row in self.board:
-            print(" ".join(row))
+            for piece in row:
+                print(piece.getColor() + " ")
+            print()
 
     def printBlackLocations(self):
         for point in self.pieceLocations[Color.black]:
@@ -56,3 +59,8 @@ class Board(object):
     def printWhiteLocations(self):
         for point in self.pieceLocations[Color.white]:
             print(point)
+"""
+board = Board(11)
+board.addPieceAt(Piece(Color.black), Point(2, 3))
+board.printBoard()
+board.printBlackLocations() """
