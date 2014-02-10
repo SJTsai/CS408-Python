@@ -8,19 +8,11 @@ class Board(object):
        as well as empty lists for black and white locations on board"""
     def __init__(self, size):
         self.size = size
-        #Make the board list
+        """Make the board list"""
         self.board = [["-" for i in range(size)] for j in range(size)]
-<<<<<<< Updated upstream
-        self.blackLocations = [] """List of black points"""
-        self.whiteLocations = [] """List of white points"""
-        self.pieceLocations = {"b":self.blackLocations,
-                               "w":self.whiteLocations}
-
-=======
-        """List of points for black and white"""
+        """List of points for black and white inside a dictionary"""
         self.pieceLocations = {Color.black:[], Color.white:[]}
         
->>>>>>> Stashed changes
     """Add a piece of the specified row and column.
        Raises IllegalMoveError"""
     def addPieceAt(self, piece, point):
