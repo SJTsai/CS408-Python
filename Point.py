@@ -4,6 +4,7 @@ class Point(object):
         self.x = x
         self.y = y
 
+<<<<<<< Updated upstream
     """Return the x (row) position of the Point"""
     def getX():
         return self.x
@@ -11,3 +12,7 @@ class Point(object):
     """Return the y (column) position of the Point"""
     def getY():
         return self.y
+=======
+    def __repr__(self):
+        return "(%d, %d)" % (self.x, self.y)
+>>>>>>> Stashed changes

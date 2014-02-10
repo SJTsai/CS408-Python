@@ -1,5 +1,6 @@
-import Piece
-import Point
+from Color import Color
+from Piece import Piece
+from Point import Point
 
 """Manages the pieces and moves made on the board"""
 class Board(object):
@@ -9,18 +10,32 @@ class Board(object):
         self.size = size
         #Make the board list
         self.board = [["-" for i in range(size)] for j in range(size)]
+<<<<<<< Updated upstream
         self.blackLocations = [] """List of black points"""
         self.whiteLocations = [] """List of white points"""
         self.pieceLocations = {"b":self.blackLocations,
                                "w":self.whiteLocations}
 
+=======
+        """List of points for black and white"""
+        self.pieceLocations = {Color.black:[], Color.white:[]}
+        
+>>>>>>> Stashed changes
     """Add a piece of the specified row and column.
        Raises IllegalMoveError"""
     def addPieceAt(self, piece, point):
-        pass
+        """Check if point is valid here"""
+        
+        if piece.color == Color.black:
+            self.pieceLocations[Color.black].append(point)
+        elif piece.color == Color.white:
+            self.pieceLocations[Color.white].append(point)
+
+        self.board[point.x][point.y] = piece.color
 
     """Get the piece at specified row and column"""
     def getPieceAt(self, point):
+        """Check if point is valid here"""
         pass
 
     """Get the piece locations of a certain color
@@ -41,4 +56,11 @@ class Board(object):
     def printBoard(self):
         for row in self.board:
             print(" ".join(row))
-        print()
+
+    def printBlackLocations(self):
+        for point in self.pieceLocations[Color.black]:
+            print(point)
+
+    def printWhiteLocations(self):
+        for point in self.pieceLocations[Color.white]:
+            print(point)
