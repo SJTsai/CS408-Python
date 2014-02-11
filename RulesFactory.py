@@ -73,9 +73,6 @@ class RulesFactory(object):
             color = piece.color
         else:
             return False
-
-        if color == '-':
-            return False
         
         if self.checkVertical(col, color, board) or self.checkHorizontal(row, color, board) or self.checkDiagonalPositiveSlope(row, col, color, board) or self.checkDiagonalNegativeSlope(row, col, color, board):
             return True
