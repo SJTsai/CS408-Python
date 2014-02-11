@@ -6,3 +6,6 @@ class Piece(object):
     """ Returns the color, 'b' or 'w', for the piece """
     def getColor(self):
         return self.color
+
+    def __repr__(self):
+        return "Piece color: %s" % self.color
