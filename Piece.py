@@ -10,6 +10,3 @@ class Piece(object):
     """
     def getColor():
         return self.color
-        
-    def printColor(self):
-        print(self.color)
