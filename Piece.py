@@ -1,6 +1,6 @@
 class Piece(object):
-    """Use Color.black or Color.white for color for
-       the purposes of this project."""
+
+    """Use 'b' or 'w' for color for the purposes of this project"""
     def __init__(self, color):
         self.color = color
 
@@ -8,7 +8,7 @@ class Piece(object):
         Returns this piece's color
         returns: Character. Either 'b' or 'w'.
     """
-    def getColor(self):
+    def getColor():
         return self.color
         
     def printColor(self):

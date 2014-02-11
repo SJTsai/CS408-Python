@@ -33,10 +33,6 @@ class Board(object):
     def isLegalFor(self, piece, point):
         pass
 
-    """Check for vertical, horizontal, and diagonal victories."""
-    def checkForVictory(self):
-        pass
-
     """Print contents of board"""
     def printBoard(self):
         for row in self.board:
