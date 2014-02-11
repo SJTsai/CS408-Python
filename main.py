@@ -10,8 +10,8 @@ root = tkinter.Tk()
 #Set pixel width/height of cell
 cell_width = 50
 
-#Size of the canvas we're renerding on
-canvas_size = 500
+#Size of the canvas we're rendering on
+canvas_size = 550
 
 #Current move's player color
 current_player = 'w' #w is for white
