@@ -188,7 +188,7 @@ class RulesFactory(object):
 
 # TEST CODE
 
-
+"""
 board = Board(11)
 rules = RulesFactory(board)
 
@@ -255,5 +255,5 @@ else:
 print()
 board.printBoard()
 print()
-
+"""
 
