@@ -3,6 +3,9 @@ from Piece import Piece
 
 """ Implementation of Connect 5 rules """
 class RulesFactory(object):
+    def __init__(self, board):
+        self.board = board
+    
     """
     def __init__(self, size):
         self.size = size
@@ -40,19 +43,19 @@ class RulesFactory(object):
     """
     
     """ Checks if move is valid for given piece """
-    def isLegalFor(self, piece, row, col, board):
-        if self.pointIsOutOfBounds(row, col, board):
+    def isLegalFor(self, piece, row, col):
+        if self.pointIsOutOfBounds(row, col):
             return False
         
-        return board.getBoard()[row][col] is None
+        return self.board.getBoard()[row][col] is None
 
     """ Checks if the Piece (if it exists) at the specified point
         is the same color as the one provided """
-    def isPieceAtPointEqualToColor(self, row, col, color, board):
-        if self.pointIsOutOfBounds(row, col, board):
+    def isPieceAtPointEqualToColor(self, row, col, color):
+        if self.pointIsOutOfBounds(row, col):
             return False
         
-        piece = board.getBoard()[row][col]
+        piece = self.board.getBoard()[row][col]
         if not piece is None:
             if piece.color == color:
                 return True
@@ -60,30 +63,31 @@ class RulesFactory(object):
         return False
 
     """ Determines if the row or column is out of the boundaries of the board """
-    def pointIsOutOfBounds(self, row, col, board):
-        return row < 0 or row >= board.getSize() or col < 0 or col >= board.getSize()
+    def pointIsOutOfBounds(self, row, col):
+        boardSize = self.board.getSize()
+        return row < 0 or row >= boardSize or col < 0 or col >= boardSize
 
     """ Check for vertical, horizontal, and diagonal victories. """
-    def checkForVictoryWithPoint(self, row, col, board):
-        if self.pointIsOutOfBounds(row, col, board):
+    def checkForVictoryWithPoint(self, row, col):
+        if self.pointIsOutOfBounds(row, col):
             return False
 
-        piece = board.getBoard()[row][col]
+        piece = self.board.getBoard()[row][col]
         if not piece is None:
             color = piece.color
         else:
             return False
         
-        if self.checkVertical(col, color, board) or self.checkHorizontal(row, color, board) or self.checkDiagonalPositiveSlope(row, col, color, board) or self.checkDiagonalNegativeSlope(row, col, color, board):
+        if self.checkVertical(col, color) or self.checkHorizontal(row, color) or self.checkDiagonalPositiveSlope(row, col, color) or self.checkDiagonalNegativeSlope(row, col, color):
             return True
         else:
             return False
 
     """ Check if there are 5 pieces of the same color in the given column """
-    def checkVertical(self, col, color, board):
+    def checkVertical(self, col, color):
         count = 0
-        for row in range(board.getSize()):
-            if self.isPieceAtPointEqualToColor(row, col, color, board):
+        for row in range(self.board.getSize()):
+            if self.isPieceAtPointEqualToColor(row, col, color):
                 count += 1
                 if count == 5:
                     return True
@@ -92,10 +96,10 @@ class RulesFactory(object):
         return False
             
     """ Check if there are 5 pieces of the same color in the given row """
-    def checkHorizontal(self, row, color, board):
+    def checkHorizontal(self, row, color):
         count = 0
-        for col in range(board.getSize()):
-            if self.isPieceAtPointEqualToColor(row, col, color, board):
+        for col in range(self.board.getSize()):
+            if self.isPieceAtPointEqualToColor(row, col, color):
                 count += 1
                 if count == 5:
                     return True
@@ -104,17 +108,17 @@ class RulesFactory(object):
         return False
 
     """ Check diagonal with positive slope for 5 pieces of the same color in a row """
-    def checkDiagonalPositiveSlope(self, row, col, color, board):
-        rowColDictionary = self.findTopRight(row, col, board)
+    def checkDiagonalPositiveSlope(self, row, col, color):
+        rowColDictionary = self.findTopRight(row, col)
         startingRow = rowColDictionary["row"]
         startingCol = rowColDictionary["col"]
         count = 0
-        boardSize = board.getSize()
+        boardSize = self.board.getSize()
         for col in range(startingCol, -1, -1):
             if startingRow >= boardSize:
                 return False
 
-            if self.isPieceAtPointEqualToColor(startingRow, col, color, board):
+            if self.isPieceAtPointEqualToColor(startingRow, col, color):
                 count += 1
                 if count == 5:
                     return True
@@ -127,8 +131,8 @@ class RulesFactory(object):
     """ Find the top-right point of a diagonal with a positive slope based on given point.
         Returns a dictionary with "row" and "col" as the keys to access the row and column
         values respectively. """
-    def findTopRight(self, row, col, board):
-        boardSize = board.getSize()
+    def findTopRight(self, row, col):
+        boardSize = self.board.getSize()
         
         # Find width between given point and the end of the board
         deltaX = boardSize - col - 1
@@ -146,16 +150,16 @@ class RulesFactory(object):
             return {"row":startingRow, "col":boardSize - 1}
 
     """ Check diagonal with negative slope for 5 pieces of the same color in a row """
-    def checkDiagonalNegativeSlope(self, row, col, color, board):
-        rowColDictionary = self.findTopLeft(row, col, board)
+    def checkDiagonalNegativeSlope(self, row, col, color):
+        rowColDictionary = self.findTopLeft(row, col)
         startingRow = rowColDictionary["row"]
         startingCol = rowColDictionary["col"]
         count = 0
-        boardSize = board.getSize()
+        boardSize = self.board.getSize()
         for col in range(startingCol, boardSize):
             if startingRow >= boardSize:
                 return False
-            if self.isPieceAtPointEqualToColor(startingRow, col, color, board):
+            if self.isPieceAtPointEqualToColor(startingRow, col, color):
                 count += 1
                 if count == 5:
                     return True
@@ -168,7 +172,7 @@ class RulesFactory(object):
     """ Find the top-left poing of a diagonal with a negative slope based on given point.
         Returns a dictionary with "row" and "col" as the keys to access the row and column
         values respectively. """
-    def findTopLeft(self, row, col, board):
+    def findTopLeft(self, row, col):
         # Find the starting row by subtracting from the existing row by the column (here, the column is
         # essential the width from the starting edge of the board to the said column.  You can also
         # think of this as making an isosceles right triangle by moving left to the edge of the board,
@@ -186,6 +190,7 @@ class RulesFactory(object):
 
 """
 board = Board(11)
+rules = RulesFactory(board)
 
 print("CHECK VERTICAL")
 #board.addPieceAt(Piece('w'), 2, 3)
@@ -194,11 +199,19 @@ board.addPieceAt(Piece('w'), 4, 3)
 board.addPieceAt(Piece('w'), 5, 3)
 board.addPieceAt(Piece('w'), 6, 3)
 #board.printBoard()
-rules = RulesFactory()
-if rules.checkForVictoryWithPoint(2, 3, board):
+if rules.checkForVictoryWithPoint(3, 3):
     print("White wins!")
 else:
     print("Winner undetermined.")
+
+board.addPieceAt(Piece('w'), 2, 3)
+print()
+print("White piece added at (2, 3)")
+if rules.checkForVictoryWithPoint(5, 3):
+    print("White wins!")
+else:
+    print("Winner undetermined.")
+
 
 print()
 print("CHECK HORIZONTAL")
@@ -208,7 +221,7 @@ board.addPieceAt(Piece('b'), 4, 6)
 board.addPieceAt(Piece('b'), 4, 7)
 board.addPieceAt(Piece('b'), 4, 8)
 #board.printBoard()
-if rules.checkForVictoryWithPoint(4, 4, board):
+if rules.checkForVictoryWithPoint(4, 4):
     print("Black wins!")
 else:
     print("Winner undetermined.")
@@ -221,8 +234,7 @@ board.addPieceAt(Piece('w'), 7, 2)
 board.addPieceAt(Piece('w'), 8, 3)
 board.addPieceAt(Piece('w'), 9, 4)
 #board.printBoard()
-rules = RulesFactory()
-if rules.checkForVictoryWithPoint(8, 3, board):
+if rules.checkForVictoryWithPoint(8, 3):
     print("White wins!")
 else:
     print("Winner undetermined.")
@@ -235,12 +247,13 @@ board.addPieceAt(Piece('b'), 7, 7)
 board.addPieceAt(Piece('b'), 6, 8)
 board.addPieceAt(Piece('b'), 5, 9)
 #board.printBoard()
-rules = RulesFactory()
-if rules.checkForVictoryWithPoint(7, 7, board):
+if rules.checkForVictoryWithPoint(7, 7):
     print("Black wins!")
 else:
     print("Winner undetermined.")
 
 print()
 board.printBoard()
+print()
 """
+
