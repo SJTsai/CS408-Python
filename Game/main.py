@@ -5,6 +5,7 @@ import tkinter
 from tkinter        import messagebox
 from RulesFactory   import RulesFactory
 from Board          import Board
+from Piece          import Piece
 
 #Initialize tkinter
 root = tkinter.Tk()
@@ -40,13 +41,12 @@ def drawPiece(event):
     cellX = int(event.x / cell_width)
     cellY = int(event.y / cell_width)
     
-    print(cellX, cellY)
-    
     cellXTopLeft = cell_width * cellX
     cellYTopLeft = cell_width * cellY
     if current_player == 'w':
+        #isLegalFor() for takes a piece as a parameter, but does nothing with it.
         if rules.isLegalFor( 'w', cellX, cellY ):
-            board.addPieceAt( 'w', cellX, cellY )
+            board.addPieceAt( Piece( 'w' ), cellX, cellY )
             w.create_oval(cellXTopLeft, cellYTopLeft, cellXTopLeft + cell_width, cellYTopLeft + cell_width, fill="white")
             current_player = 'b'
             
@@ -56,8 +56,9 @@ def drawPiece(event):
             #Not a valid move, do nothing
             pass
     else:
+        #isLegalFor() for takes a piece as a parameter, but does nothing with it.
         if rules.isLegalFor( 'b', cellX, cellY ):
-            board.addPieceAt( 'b', cellX, cellY )
+            board.addPieceAt( Piece( 'b' ), cellX, cellY )
             w.create_oval( cellXTopLeft, cellYTopLeft, cellXTopLeft + cell_width, cellYTopLeft + cell_width, fill="black")
             current_player = 'w'
             
