@@ -18,8 +18,8 @@ class Board(object):
         Clear the board of all pieces
     """
     def clearBoard(self):
-        for row in range( 0, size ):
-            for col in range( 0, size ):
+        for row in range( 0, self.size ):
+            for col in range( 0, self.size ):
                 self.board[row][col] = None
         
     """ Add a piece of the specified row and column. """
