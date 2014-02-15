@@ -14,6 +14,14 @@ class Board(object):
     def getBoard(self):
         return self.board
         
+    """
+        Clear the board of all pieces
+    """
+    def clearBoard(self):
+        for row in range( 0, size ):
+            for col in range( 0, size ):
+                self.board[row][col] = None
+        
     """ Add a piece of the specified row and column. """
     def addPieceAt(self, piece, row, col):
         if self.isOutOfBounds(row, col):
