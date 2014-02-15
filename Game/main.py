@@ -29,6 +29,7 @@ rules = RulesFactory(board)
 
 def mAlert(aTitle, bMessage):
     messagebox.showinfo(title=aTitle, message=bMessage)
+    board.clearBoard()
 
 """
     When the game board is clicked, draw the piece on the board and alternate
@@ -48,7 +49,9 @@ def drawPiece(event):
             board.addPieceAt( 'w', cellX, cellY )
             w.create_oval(cellXTopLeft, cellYTopLeft, cellXTopLeft + cell_width, cellYTopLeft + cell_width, fill="white")
             current_player = 'b'
-            mAlert("farts", "a lot")
+            
+            if rules.checkForVictoryWithPoint( cellX, cellY ):
+                mAlert( "Winner!", "White wins!" )
         else:
             #Not a valid move, do nothing
             pass
@@ -57,6 +60,9 @@ def drawPiece(event):
             board.addPieceAt( 'b', cellX, cellY )
             w.create_oval( cellXTopLeft, cellYTopLeft, cellXTopLeft + cell_width, cellYTopLeft + cell_width, fill="black")
             current_player = 'w'
+            
+            if rules.checkForVictoryWithPoint( cellX, cellY ):
+                mAlert( "Winner!", "Black wins!" )
         else:
             #Not a valid move, do nothing
             pass
