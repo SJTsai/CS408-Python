@@ -14,7 +14,7 @@ root = tkinter.Tk()
 cell_width = 50
 
 #Number of rows/columns
-num_rows = 12
+num_rows = 11
 
 #Size of the canvas we're rendering on
 canvas_size = num_rows * cell_width
@@ -23,7 +23,7 @@ canvas_size = num_rows * cell_width
 current_player = 'w' #w is for white
 
 #Board to use with 10 rows/columns (square board)
-board = Board(10)
+board = Board(11)
 
 #Rules to use
 rules = RulesFactory(board)
